@@ -1,0 +1,51 @@
+{
+  "_doc": "스타일 프리셋. 색은 #RRGGBB, 크기는 1080p 기준 px(해상도에 맞춰 자동 스케일). 새 프리셋은 default를 복사해 키 구조를 그대로 유지.",
+  "default": {
+    "desc": "토크·브이로그 — 흰 자막 + 굵은 검정 외곽선, 노랑 강조",
+    "fonts": {"caption": "Pretendard ExtraBold", "title": "Black Han Sans", "text": "Pretendard Black", "quote": "NanumMyeongjo ExtraBold"},
+    "caption": {"size": 66, "color": "#FFFFFF", "outline_color": "#000000", "outline": 6, "shadow": 2,
+                "box": false, "box_color": "#000000", "box_alpha": 0.45,
+                "highlight": "#FFE14D", "highlight_scale": 108, "margin_v": 78, "max_chars": 17, "pop": true},
+    "accent": "#FFE14D", "accent2": "#FF4D6D", "panel": "#111111", "panel_alpha": 0.82, "on_accent": "#111111",
+    "zoom": [1.0, 1.1, 1.22], "zoom_anchor_y": 0.42, "punch_zoom": 1.32,
+    "grade": "eq=contrast=1.03:saturation=1.06",
+    "vignette": false,
+    "sfx": {"lower_third": "swoosh", "chapter": "whoosh", "list": "tick", "keyword": "pop", "stat": "ding",
+            "impact": "impact", "quote": "ding", "cta": "click", "text": "typing", "intro": "riser", "image": "whoosh"},
+    "sfx_volume": 0.32,
+    "shorts": {"layout": "square", "bg": "#000000", "video_y": 470, "headline_size": 88, "headline_color": "#FFFFFF",
+               "headline_highlight": "#FFE14D", "caption_y": 1680, "caption_size": 72}
+  },
+  "mystic": {
+    "desc": "사주·명리·타로·운세 — 남색/보라 톤, 금색 강조, 명조체 인용, 종소리·반짝임",
+    "fonts": {"caption": "Pretendard ExtraBold", "title": "Black Han Sans", "text": "Pretendard Black", "quote": "NanumMyeongjo ExtraBold"},
+    "caption": {"size": 62, "color": "#FFFFFF", "outline_color": "#1A1033", "outline": 5, "shadow": 3,
+                "box": false, "box_color": "#120A26", "box_alpha": 0.5,
+                "highlight": "#F2C46D", "highlight_scale": 106, "margin_v": 80, "max_chars": 18, "pop": true},
+    "accent": "#F2C46D", "accent2": "#B48CFF", "panel": "#140C2E", "panel_alpha": 0.85, "on_accent": "#1A1033",
+    "zoom": [1.0, 1.08, 1.18], "zoom_anchor_y": 0.4, "punch_zoom": 1.28,
+    "grade": "eq=contrast=1.05:saturation=1.04:gamma=0.98,colorbalance=bs=0.04:bm=0.02:rh=0.02",
+    "vignette": true,
+    "sfx": {"lower_third": "shimmer", "chapter": "bell", "list": "tick", "keyword": "shimmer", "stat": "ding",
+            "impact": "impact", "quote": "bell", "cta": "click", "text": "typing", "intro": "riser", "image": "whoosh"},
+    "sfx_volume": 0.28,
+    "shorts": {"layout": "square", "bg": "#0E0820", "video_y": 470, "headline_size": 86, "headline_color": "#FFFFFF",
+               "headline_highlight": "#F2C46D", "caption_y": 1680, "caption_size": 70}
+  },
+  "news": {
+    "desc": "정보·분석·투자(ELONA) — 노랑/빨강 강조, 빠른 템포, 박스형 키워드, 스팅 효과음",
+    "fonts": {"caption": "Pretendard Black", "title": "Black Han Sans", "text": "Pretendard Black", "quote": "Pretendard ExtraBold"},
+    "caption": {"size": 66, "color": "#FFFFFF", "outline_color": "#000000", "outline": 7, "shadow": 0,
+                "box": false, "box_color": "#000000", "box_alpha": 0.6,
+                "highlight": "#FFD400", "highlight_scale": 110, "margin_v": 74, "max_chars": 16, "pop": true},
+    "accent": "#FFD400", "accent2": "#FF3B30", "panel": "#0B0B0B", "panel_alpha": 0.88, "on_accent": "#0B0B0B",
+    "zoom": [1.0, 1.12, 1.25], "zoom_anchor_y": 0.42, "punch_zoom": 1.35,
+    "grade": "eq=contrast=1.06:saturation=1.1",
+    "vignette": false,
+    "sfx": {"lower_third": "swoosh", "chapter": "news_sting", "list": "pop", "keyword": "swoosh", "stat": "ding",
+            "impact": "impact", "quote": "ding", "cta": "click", "text": "typing", "intro": "riser", "image": "whoosh"},
+    "sfx_volume": 0.34,
+    "shorts": {"layout": "square", "bg": "#000000", "video_y": 470, "headline_size": 90, "headline_color": "#FFFFFF",
+               "headline_highlight": "#FFD400", "caption_y": 1680, "caption_size": 74}
+  }
+}
