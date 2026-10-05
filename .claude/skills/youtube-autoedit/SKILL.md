@@ -1,9 +1,22 @@
 ---
 name: youtube-autoedit
-description: 원본 영상을 받으면 자동 컷편집·자막·모션그래픽·효과음·쇼츠까지 완성 편집한다 (이 레포의 autoedit-kit 사용). 레퍼런스 영상 스타일 분석·프리셋 보정에도 사용.
+description: 원본 영상 또는 대본(텍스트)을 받으면 컷편집·TTS·스톡 영상 수집·자막·모션그래픽·효과음·BGM·쇼츠까지 완성 영상을 만든다 (이 레포의 autoedit-kit 사용). 레퍼런스 영상 스타일 분석·프리셋 보정에도 사용.
 ---
 
 # YouTube 자동 편집 (레포 키트 버전)
+
+입력이 두 종류다:
+- **대본(텍스트)만 받은 경우 → 아래 'A. 대본 모드'** (TTS + 스톡 자료 + 편집)
+- **촬영 원본 영상을 받은 경우 → '1. 분석'부터** (컷편집 모드)
+
+## A. 대본 모드 (script2video)
+`autoedit-kit/prompts/script_format.md`를 먼저 읽는다.
+1. 대본을 문법에 맞게 다듬은 사본 `W/script.txt` 작성: `# 제목:`/`# 부제:`, `## 챕터`, `**키워드**`, `[화면: 영어 검색어]`, `[키워드:]`, `[숫자:]`, `[목록:]`, `!! 임팩트`, `> 인용`. 사용자의 문장·말투는 바꾸지 않는다.
+2. `pip install edge-tts --break-system-packages` 후 `python script2video.py prepare W/script.txt --work W --style <스타일> --voice female`
+3. `W/scenes.json`의 모든 장면 `query`를 문장 내용에 맞는 구체적 영어 검색어로 채운다(규칙: script_format.md)
+4. `python script2video.py build W` → `W/clips/` 몇 개를 프레임으로 확인, 이상하면 query/pick 수정 후 재실행
+5. plan.json에 fx·shorts 보강 → 아래 3번(렌더 & 검수)과 동일. 전달 시 `W/credits.txt`도 함께
+- 막히는 경우: TTS 실패 → `speech.platform.bing.com` 허용 안내. `PEXELS_API_KEY`/`PIXABAY_API_KEY` 없음 → 그라데이션 배경으로 진행하되 키 설정 안내(키는 채팅으로 받지 않고 환경 설정에 넣게 한다).
 
 사용자가 원본 영상을 주면 **묻지 말고 끝까지 편집해서 완성본을 전달**한다. 확인 질문은 스타일이 정말 모호할 때 1회만.
 키트: 레포의 `autoedit-kit/` (zip 불필요). 상세 규칙은 `autoedit-kit/prompts/edit_prompt.md` — **plan.json 작성 전에 반드시 읽는다.**

@@ -775,7 +775,9 @@ def render(a):
     kws = plan.get("keywords", [])
 
     base = os.path.join(work, "base.mkv")
-    stamp = json.dumps({"k": keep, "W": W, "H": H, "p": bool(a.preview), "src": plan["source"]}, sort_keys=True)
+    st_src = os.stat(plan["source"])
+    stamp = json.dumps({"k": keep, "W": W, "H": H, "p": bool(a.preview), "src": plan["source"],
+                        "m": st_src.st_mtime, "z": st_src.st_size}, sort_keys=True)
     stamp_path = os.path.join(work, "base.stamp")
     if not (os.path.exists(base) and os.path.exists(stamp_path) and open(stamp_path).read() == stamp):
         shutil.rmtree(os.path.join(work, "segs"), ignore_errors=True)
@@ -802,10 +804,15 @@ def render(a):
         for c in out_chunks:
             if intro.get("title") and c["e"] < intro.get("dur", 3.0) - 0.2:
                 continue
+            mid = (c["s"] + c["e"]) / 2
+            if not plan.get("quote_captions", True) and any(
+                    f["type"] == "quote" and tl.out(f.get("cap_s", f["t"])) <= mid <= tl.out(f.get("cap_e", f["t"] + f["dur"]))
+                    and f["ot"] <= mid <= f["ot"] + f["dur"] for f in fx_out):
+                continue  # 인용 fx가 같은 문장을 크게 보여주는 동안 하단 자막 생략
             ass.caption(c["s"], c["e"], c["text"], kws)
         images = []
         for f in fx_out:
-            p = {k: v for k, v in f.items() if k not in ("type", "t", "ot", "dur", "auto", "src")}
+            p = {k: v for k, v in f.items() if k not in ("type", "t", "ot", "dur", "auto", "src", "cap_s", "cap_e")}
             ass.fx(f["type"], f["ot"], f.get("dur"), **p)
             if f["type"] == "image" and f.get("path"):
                 images.append({"t": f["ot"], "dur": f.get("dur", 3.0), "path": f["path"], "mode": f.get("mode", "pip"), "W": W, "H": H})
@@ -853,7 +860,7 @@ def render_short(i, sh, plan, style, tl, base, out_chunks, fx_out, kws, out_dir,
                     pos=(SW / 2, cap_y), size=ss.get("caption_size", 72))
     for f in fx_out:
         if f["type"] in ("keyword", "impact", "quote", "stat") and s0 <= f["ot"] < s1 - 0.5:
-            p = {k: v for k, v in f.items() if k not in ("type", "t", "ot", "dur", "auto", "src")}
+            p = {k: v for k, v in f.items() if k not in ("type", "t", "ot", "dur", "auto", "src", "cap_s", "cap_e")}
             if layout != "full":
                 p.setdefault("y", (ss.get("video_y", 470) + SW / 2) / SH)
             ass.fx(f["type"], f["ot"] - s0, f.get("dur"), **p)
